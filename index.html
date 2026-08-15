@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Alya...</title>
+    <title>Halooo</title>
     <style>
         body {
             margin: 0;
@@ -104,10 +104,8 @@
 </head>
 <body>
 
-<!-- LAGU BACKGROUND -->
-<audio id="bgMusic" loop preload="auto">
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
-</audio>
+<!-- YOUTUBE PLAYER BACKGROUND (TERSEMBUNYI) -->
+<div id="player" style="display:none;"></div>
 
 <div class="card" id="mainCard">
     
@@ -142,7 +140,7 @@
 
     <!-- HALAMAN 4: KALAU DIA JAWAB MAU -->
     <div id="stepYes">
-        <h1 style="color: #ff4d4d;">Yeayyy! Makasih yaa Alya ❤️</h1>
+        <h1 style="color: #ff4d4d;">Yeayyy! Love you i guess hehe❤️</h1>
         <p style="color: #555; font-size: 16px; margin-bottom: 20px;">I'm so happy!</p>
         <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Cute Hug" style="width: 100%; max-width: 200px; border-radius: 10px;">
     </div>
@@ -156,10 +154,28 @@
 
 </div>
 
+<!-- LOAD YOUTUBE IFRAME API -->
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
+    let player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '0',
+            width: '0',
+            videoId: 'FK0a0bQVB9c', // ID Video Ricky Montgomery - Line Without A Hook Piano Cover
+            playerVars: {
+                'autoplay': 0,
+                'controls': 0,
+                'loop': 1,
+                'playlist': 'FK0a0bQVB9c'
+            }
+        });
+    }
+
     function bukaAmplop() {
-        const music = document.getElementById('bgMusic');
-        music.play().catch(e => console.log(e));
+        if (player && player.playVideo) {
+            player.playVideo();
+        }
 
         document.getElementById('step1').style.display = 'none';
         document.getElementById('step2').style.display = 'block';
