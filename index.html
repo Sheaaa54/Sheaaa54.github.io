@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Alya...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fce4e4; /* Warna pink pastel */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            padding: 50px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 400px;
+            width: 85%;
+        }
+        h1 {
+            color: #ff4d4d;
+            font-size: 22px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        .btn-merah {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 77, 77, 0.3);
+            transition: transform 0.2s;
+        }
+        .btn-merah:hover {
+            transform: scale(1.05);
+            background-color: #ff3333;
+        }
+        .btn-abu {
+            background-color: #f0f0f0;
+            color: #444;
+            border: none;
+            padding: 12px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        #step2 {
+            display: none; /* Disembunyiin dulu sebelum dipencet lanjut */
+        }
+    </style>
+</head>
+<body>
+
+<div class="card" id="mainCard">
+    
+    <!-- HALAMAN PERTAMA -->
+    <div id="step1">
+        <h1>Halo Alya! I just wanna tell u smth</h1>
+        <button class="btn-merah" onclick="lanjut()">Lanjut</button>
+    </div>
+
+    <!-- HALAMAN KEDUA (Pertanyaan Inti) -->
+    <div id="step2">
+        <h1>Will you be my girlfriend? hehe 🥺</h1>
+        <div class="btn-group">
+            <button class="btn-merah" id="btnYes" onclick="terima()">Mau!</button>
+            <!-- Tombol Nggak dibikin kabur pas disorot (hover) dan diklik (buat di HP) -->
+            <button class="btn-abu" id="btnNo" onmouseover="kabur()" onclick="kabur()">Nggak</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Fungsi buat pindah dari Step 1 ke Step 2
+    function lanjut() {
+        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step2').style.display = 'block';
+    }
+
+    // Fungsi biar tombol "Nggak" lari-lari
+    function kabur() {
+        const btnNo = document.getElementById('btnNo');
+        
+        // Menghitung ukuran layar biar tombolnya ngga keluar jalur
+        const maxX = window.innerWidth - btnNo.offsetWidth - 20;
+        const maxY = window.innerHeight - btnNo.offsetHeight - 20;
+        
+        const x = Math.floor(Math.random() * maxX);
+        const y = Math.floor(Math.random() * maxY);
+        
+        btnNo.style.position = 'fixed';
+        btnNo.style.left = `${Math.max(10, x)}px`;
+        btnNo.style.top = `${Math.max(10, y)}px`;
+    }
+
+    // Fungsi pas dia klik "Mau!"
+    function terima() {
+        document.getElementById('mainCard').innerHTML = `
+            <h1 style="color: #ff4d4d;">Yeayyy! Makasih yaa Alya ❤️</h1>
+            <p style="color: #555; font-size: 16px; margin-bottom: 20px;">I'm so happy!</p>
+            <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Cute Hug" style="width: 100%; max-width: 200px; border-radius: 10px;">
+        `;
+    }
+</script>
+
+</body>
+</html>
