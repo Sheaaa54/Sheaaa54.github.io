@@ -11,25 +11,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #fce4e4; /* Warna pink pastel */
+            min-height: 100vh;
+            background-color: #fce4e4;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         .card {
             background: white;
-            padding: 50px 30px;
+            padding: 40px 30px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             text-align: center;
             max-width: 400px;
             width: 85%;
+            margin: 20px;
         }
         h1 {
             color: #ff4d4d;
             font-size: 22px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             line-height: 1.5;
+        }
+        p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
         }
         .btn-merah {
             background-color: #ff4d4d;
@@ -41,7 +47,8 @@
             border-radius: 25px;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(255, 77, 77, 0.3);
-            transition: transform 0.2s;
+            transition: transform 0.2s, background-color 0.2s;
+            margin-top: 15px;
         }
         .btn-merah:hover {
             transform: scale(1.05);
@@ -56,70 +63,121 @@
             font-weight: bold;
             border-radius: 25px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, background-color 0.2s;
+            margin-top: 15px;
+        }
+        .btn-abu:hover {
+            transform: scale(1.05);
+            background-color: #e0e0e0;
         }
         .btn-group {
             display: flex;
             justify-content: center;
             gap: 15px;
+            margin-top: 10px;
         }
-        #step2 {
-            display: none; /* Disembunyiin dulu sebelum dipencet lanjut */
+        .icon-amplop {
+            font-size: 80px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .icon-amplop:hover {
+            transform: translateY(-5px);
+        }
+        .surat-panjang {
+            text-align: left;
+            font-size: 15px;
+            background-color: #fffafb;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #ff4d4d;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        #step2, #step3, #stepYes, #stepNo {
+            display: none;
         }
     </style>
 </head>
 <body>
 
+<!-- LAGU BACKGROUND -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg">
+</audio>
+
 <div class="card" id="mainCard">
     
-    <!-- HALAMAN PERTAMA -->
+    <!-- HALAMAN 1: AMPLOP -->
     <div id="step1">
         <h1>Halo Alya! I just wanna tell u smth</h1>
-        <button class="btn-merah" onclick="lanjut()">Lanjut</button>
+        <div class="icon-amplop" onclick="bukaAmplop()">💌</div>
+        <button class="btn-merah" onclick="bukaAmplop()">Buka</button>
     </div>
 
-    <!-- HALAMAN KEDUA (Pertanyaan Inti) -->
+    <!-- HALAMAN 2: SURAT PANJANG LU -->
     <div id="step2">
+        <div class="surat-panjang">
+            <p>Hai Alya,</p>
+            <p>Gatau sih kenapa gw buat beginian? biar unik aja si sebenernya</p>
+            <p>Gw cuma mau bilang lu ada tertarik ga sih sama relationship?</p>
+            <p>Jujur jujuran aja gw ada interest sama lu, or maybe i already liked you</p>
+            <p>Maybe this is like Confession Letter i guess?</p>
+            <p>if you interested, bisa di klik tombol "Lanjut" nya yah hehe</p>
+        </div>
+        <button class="btn-merah" onclick="lanjutTanya()">Lanjut</button>
+    </div>
+
+    <!-- HALAMAN 3: PERTANYAAN INTI -->
+    <div id="step3">
         <h1>Will you be my girlfriend? hehe 🥺</h1>
         <div class="btn-group">
-            <button class="btn-merah" id="btnYes" onclick="terima()">Mau!</button>
-            <!-- Tombol Nggak dibikin kabur pas disorot (hover) dan diklik (buat di HP) -->
-            <button class="btn-abu" id="btnNo" onmouseover="kabur()" onclick="kabur()">Nggak</button>
+            <button class="btn-merah" onclick="jawabanYes()">Mau!</button>
+            <button class="btn-abu" onclick="jawabanNo()">Nggak</button>
         </div>
+    </div>
+
+    <!-- HALAMAN 4: KALAU DIA JAWAB MAU -->
+    <div id="stepYes">
+        <h1 style="color: #ff4d4d;">Yeayyy! Makasih yaa Alya ❤️</h1>
+        <p style="color: #555; font-size: 16px; margin-bottom: 20px;">I'm so happy!</p>
+        <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Cute Hug" style="width: 100%; max-width: 200px; border-radius: 10px;">
+    </div>
+
+    <!-- HALAMAN 5: KALAU DIA JAWAB NGGAK -->
+    <div id="stepNo">
+        <h1 style="color: #555;">It's okay... 🤍</h1>
+        <p style="color: #555; font-size: 16px;">Mungkin belum waktunya, tapi gw tetep nunggu jawaban iya dari lu :D</p>
+        <img src="https://media.tenor.com/tYp2Z6PihVAAAAAi/tkthao219-bubududu.gif" alt="Patting head" style="width: 100%; max-width: 200px; border-radius: 10px; margin-top: 15px;">
     </div>
 
 </div>
 
 <script>
-    // Fungsi buat pindah dari Step 1 ke Step 2
-    function lanjut() {
+    function bukaAmplop() {
+        const music = document.getElementById('bgMusic');
+        music.play().catch(e => console.log(e));
+
         document.getElementById('step1').style.display = 'none';
         document.getElementById('step2').style.display = 'block';
     }
 
-    // Fungsi biar tombol "Nggak" lari-lari
-    function kabur() {
-        const btnNo = document.getElementById('btnNo');
-        
-        // Menghitung ukuran layar biar tombolnya ngga keluar jalur
-        const maxX = window.innerWidth - btnNo.offsetWidth - 20;
-        const maxY = window.innerHeight - btnNo.offsetHeight - 20;
-        
-        const x = Math.floor(Math.random() * maxX);
-        const y = Math.floor(Math.random() * maxY);
-        
-        btnNo.style.position = 'fixed';
-        btnNo.style.left = `${Math.max(10, x)}px`;
-        btnNo.style.top = `${Math.max(10, y)}px`;
+    function lanjutTanya() {
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('step3').style.display = 'block';
     }
 
-    // Fungsi pas dia klik "Mau!"
-    function terima() {
-        document.getElementById('mainCard').innerHTML = `
-            <h1 style="color: #ff4d4d;">Yeayyy! Makasih yaa Alya ❤️</h1>
-            <p style="color: #555; font-size: 16px; margin-bottom: 20px;">I'm so happy!</p>
-            <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" alt="Cute Hug" style="width: 100%; max-width: 200px; border-radius: 10px;">
-        `;
+    function jawabanYes() {
+        document.getElementById('step3').style.display = 'none';
+        document.getElementById('stepYes').style.display = 'block';
+    }
+
+    function jawabanNo() {
+        document.getElementById('step3').style.display = 'none';
+        document.getElementById('stepNo').style.display = 'block';
     }
 </script>
 
